@@ -50,6 +50,6 @@ end
     subject.touch_out
     expect(subject).not_to be_in_journey
   end
-
+lala
 
 end
