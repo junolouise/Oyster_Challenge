@@ -39,9 +39,21 @@ describe Oystercard do
        expect(subject).to be_in_journey
       end
 
+<<<<<<< HEAD
      it 'Not enough money on Oystercard' do
        expect { subject.touch_in(:entry_station) }.to raise_error Oystercard::ERROR[:min]
      end
+=======
+  it 'remembers a station on touch in' do
+    touch_in = double("touch_in")
+    subject.top_up(Oystercard::MAX_BALANCE)
+    subject.touch_in
+    expect { subject .touch_out }.to add(entry_station)
+  end
+
+  it 'raises an error' do
+    expect { subject.touch_in }.to raise_error 'Not enough money on Oystercard'
+>>>>>>> 71fa027813ada158b1791256ce364cd8cb4f5394
   end
 
   describe "#touch_out" do 
