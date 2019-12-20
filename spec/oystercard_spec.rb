@@ -60,12 +60,12 @@ describe Oystercard do
     let(:exit_station) { double :station }
     let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
-    # it 'can touch out' do
-    #   # subject.top_up(5)
-    #   subject.touch_in(:station)
-    #   subject.touch_out(:station)
-    #   expect(subject.entry_station).to eq nil
-    # end
+     it 'can touch out' do
+      subject.top_up(5)
+      subject.touch_in(:station)
+      subject.touch_out(:station)
+      expect(subject.entry_station).to eq nil
+    end
    
     it 'reduces the Oystercard balance by minimum balance' do
       subject.top_up(20)
@@ -92,8 +92,17 @@ describe Oystercard do
     end
 
     describe "#update_journey_history" do
-      it '' do
 
-      end
+    let(:entry_station) { double :station }
+
+    it 'stores the @entry_station as the value of entry_station key inside hash' do
+      subject.top_up(5)
+      subject.touch_in(:station)
+      subject.update_journey_history
+      expect(subject.current_journey[:entry_station]).to eq subject.entry_station
     end
+    end
+
+
+
   end
