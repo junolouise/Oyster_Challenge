@@ -39,21 +39,20 @@ describe Oystercard do
        expect(subject).to be_in_journey
       end
 
-<<<<<<< HEAD
      it 'Not enough money on Oystercard' do
        expect { subject.touch_in(:entry_station) }.to raise_error Oystercard::ERROR[:min]
      end
-=======
-  it 'remembers a station on touch in' do
-    touch_in = double("touch_in")
-    subject.top_up(Oystercard::MAX_BALANCE)
-    subject.touch_in
-    expect { subject .touch_out }.to add(entry_station)
+   
+      it 'remembers a station on touch in' do
+        touch_in = double("touch_in")
+        subject.top_up(Oystercard::MAX_BALANCE)
+        subject.touch_in(:station)
+        expect(subject.entry_station).to eq :station
+      end
   end
 
   it 'raises an error' do
-    expect { subject.touch_in }.to raise_error 'Not enough money on Oystercard'
->>>>>>> 71fa027813ada158b1791256ce364cd8cb4f5394
+    expect { subject.touch_in(:station) }.to raise_error Oystercard::ERROR[:min]
   end
 
   describe "#touch_out" do 
@@ -70,7 +69,7 @@ describe Oystercard do
    
     it 'reduces the Oystercard balance by minimum balance' do
       subject.top_up(20)
-      expect{ subject.touch_out }.to change{ subject.balance }.by (-Oystercard::MINIMUM_CHARGE)
+      expect{ subject.touch_out(:station) }.to change{ subject.balance }.by (-Oystercard::MINIMUM_CHARGE)
     end
   end
 
@@ -80,7 +79,7 @@ describe Oystercard do
 
       it 'reduces the Oystercard balance by minimum balance' do
         subject.top_up(10)
-        expect{ subject.touch_out }.to change{ subject.balance }.by (-Oystercard::MINIMUM_CHARGE)
+        expect{ subject.touch_out(:station) }.to change{ subject.balance }.by (-Oystercard::MINIMUM_CHARGE)
       end
 
     end
@@ -94,7 +93,7 @@ describe Oystercard do
 
     describe "#update_journey_history" do
       it '' do
-        
+
       end
     end
   end

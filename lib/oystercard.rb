@@ -21,24 +21,26 @@ class Oystercard
     @balance += amount
   end
 
-  def in_journey?
-    !@entry_station || !@exit_station
-  end
-
   def touch_in(station)
     fail ERROR[:min] if @balance < MIN_BALANCE
     @entry_station = station
   end
 
-  def touch_out()
+  def touch_out(station)
     deduct(MINIMUM_CHARGE)
+    @exit_station = station
     @entry_station = nil
   end
 
+  def in_journey?
+    !@entry_station || !@exit_station
+  end
+
   def update_journey_history
-    jounrey = { entry_s}
-    journeys << { entry_ }
+    journey = { @entry_station => @exit_station }
+    journeys << { entry_station => exit_station }
   end 
+  
   private
 
   def deduct(amount)
