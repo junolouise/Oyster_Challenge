@@ -1,38 +1,44 @@
 class Oystercard
 
-  attr_reader :balance, :max_balance, :min_balance, :minimum_charge
+  attr_reader :balance, :max_balance, :min_balance, :minimum_charge,
+              :entry_station, :exit_station, :journeys, :in_journey
 
   MAX_BALANCE = 90
   MIN_BALANCE = 1
   MINIMUM_CHARGE = 1
 
-  def initialize(max_balance=MAX_BALANCE, min_balance=MIN_BALANCE, minimum_charge=MINIMUM_CHARGE)
+  ERROR = { min: 'Not enough money on Oystercard'
+
+  }
+  def initialize()
     @balance = 0
-    @max_balance = max_balance
-    @in_journey = false
-    @min_balance = min_balance
-    @minimum_charge = minimum_charge
+    @journeys = []
+    @in_journey = false 
   end
 
   def top_up(amount)
-    raise "Balance cannot exceed £#{max_balance}" if @balance + amount > max_balance
+    raise "Balance cannot exceed £#{MAX_BALANCE}" if @balance >= MAX_BALANCE
     @balance += amount
   end
 
   def in_journey?
-    @in_journey
+    !@entry_station || !@exit_station
   end
 
-  def touch_in
-    raise 'Not enough money on Oystercard' if @balance < min_balance
-    @in_journey = true
+  def touch_in(station)
+    fail ERROR[:min] if @balance < MIN_BALANCE
+    @entry_station = station
   end
 
-  def touch_out
+  def touch_out()
     deduct(MINIMUM_CHARGE)
-    @in_journey = false
+    @entry_station = nil
   end
 
+  def update_journey_history
+    jounrey = { entry_s}
+    journeys << { entry_ }
+  end 
   private
 
   def deduct(amount)
